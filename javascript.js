@@ -8,8 +8,17 @@ function Book(title, author, pages, read, id) {
     this.id = id;
 }
 
+// Book.prototype.changeRead = function () {
+//     this.read = !this.read
+// } o sa il adaug la final
+
 function addBookToLibrary(book) {
     myLibrary.push(book)
+}
+
+function deleteBook(idToDelete) {
+    const index = myLibrary.findIndex(book => book.id === idToDelete)
+    myLibrary.splice(index, 1)
 }
 
 function displayBooks() {
@@ -32,10 +41,22 @@ function displayBooks() {
         const read = document.createElement("div")
         read.textContent = `Book was read: ${book.read ? 'Yes' : 'No'}`
 
+        const deleteBtn = document.createElement("button")
+        deleteBtn.textContent = "Delete"
+        deleteBtn.setAttribute("style", "margin-top: 40px; margin-bottom: 8px")
+        deleteBtn.classList.add("deleteBtn")
+        deleteBtn.setAttribute('data-id', book.id)
+
+        const changeBtn = document.createElement("button")
+        changeBtn.textContent = "Change read status"
+        // changeBtn.setAttribute('data-id', book.id)  ....urmeaza
+
         newBook.appendChild(title)
         newBook.appendChild(author)
         newBook.appendChild(pages)
         newBook.appendChild(read)
+        newBook.appendChild(deleteBtn)
+        newBook.appendChild(changeBtn)
     })
 }
 
@@ -57,6 +78,14 @@ form.addEventListener('submit', () => {
     addBookToLibrary(book)
 
     form.reset()
+    clearDisplay()
+    displayBooks()
+})
+
+const library = document.querySelector("#library")
+library.addEventListener('click', () => {
+    if (event.target.classList.contains("deleteBtn"))
+        deleteBook(event.target.dataset.id)
     clearDisplay()
     displayBooks()
 })
