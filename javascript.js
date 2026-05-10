@@ -8,9 +8,9 @@ function Book(title, author, pages, read, id) {
     this.id = id;
 }
 
-// Book.prototype.changeRead = function () {
-//     this.read = !this.read
-// } o sa il adaug la final
+Book.prototype.changeRead = function () {
+    this.read = !this.read
+}
 
 function addBookToLibrary(book) {
     myLibrary.push(book)
@@ -49,7 +49,8 @@ function displayBooks() {
 
         const changeBtn = document.createElement("button")
         changeBtn.textContent = "Change read status"
-        // changeBtn.setAttribute('data-id', book.id)  ....urmeaza
+        changeBtn.classList.add("changeBtn")
+        changeBtn.setAttribute('data-id', book.id)
 
         newBook.appendChild(title)
         newBook.appendChild(author)
@@ -83,9 +84,19 @@ form.addEventListener('submit', () => {
 })
 
 const library = document.querySelector("#library")
+
 library.addEventListener('click', () => {
     if (event.target.classList.contains("deleteBtn"))
         deleteBook(event.target.dataset.id)
+    clearDisplay()
+    displayBooks()
+})
+
+library.addEventListener('click', () => {
+    if (event.target.classList.contains("changeBtn")) {
+        const book = myLibrary.find(book => book.id === event.target.dataset.id)
+        book.changeRead()
+    }
     clearDisplay()
     displayBooks()
 })
