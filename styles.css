@@ -1,12 +1,18 @@
-body {
+body,
+dialog {
     background-color: rgb(255, 224, 139);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
 }
 
 #library {
     display: grid;
     grid-template: 1fr 1fr / 1fr 1fr 1fr 1fr;
     margin: 30px;
-    gap: 40px;
+    gap: 30px;
 }
 
 .book {
@@ -19,4 +25,15 @@ body {
     align-items: center;
     padding: 15px;
     box-sizing: border-box;
+}
+
+#newBtn {
+    margin: 20px 0px 0px 30px;
+    height: 30px;
+    width: 100px;
+    font-size: 15px;
+}
+
+#closeBtn {
+    margin-top: 25px;
 }
